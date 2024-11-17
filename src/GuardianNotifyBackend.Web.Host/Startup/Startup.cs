@@ -19,6 +19,8 @@ using Microsoft.OpenApi.Models;
 using System.IO;
 using Microsoft.EntityFrameworkCore;
 using GuardianNotifyBackend.EntityFrameworkCore;
+using GuardianNotifyBackend.Services.NotificationService;
+using static SmsNotificationSender;
 
 namespace GuardianNotifyBackend.Web.Host.Startup
 {
@@ -39,10 +41,16 @@ namespace GuardianNotifyBackend.Web.Host.Startup
 
         public void ConfigureServices(IServiceCollection services)
         {
+            System.Net.ServicePointManager.ServerCertificateValidationCallback +=
+        (sender, certificate, chain, sslPolicyErrors) => true;
+
             // Configure the DBContext to use SQL Server
             services.AddDbContext<GuardianNotifyBackendDbContext>(options =>
                 options.UseSqlServer(_appConfiguration.GetConnectionString("Default"))
             );
+
+            services.AddScoped<IEmailNotificationSender, EmailNotificationSender>();
+
             //MVC
             services.AddControllersWithViews(options =>
             {

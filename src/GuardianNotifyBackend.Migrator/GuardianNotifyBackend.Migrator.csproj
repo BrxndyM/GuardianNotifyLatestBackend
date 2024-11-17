@@ -16,6 +16,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Abp.Castle.Log4Net" Version="9.4.0" />
+    <PackageReference Include="Twilio" Version="7.6.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GuardianNotifyBackend.Core\GuardianNotifyBackend.Core.csproj" />

@@ -16,5 +16,6 @@ namespace GuardianNotifyBackend.Services.CloseContactsService
         Task<List<CloseContactDto>> GetAllAsync();
         Task<CloseContactDto> UpdateAsync(CloseContactDto input);
         Task Delete(Guid id);
+        Task<List<CloseContactDto>> GetAllByUserIdAsync(long userId);
     }
 }

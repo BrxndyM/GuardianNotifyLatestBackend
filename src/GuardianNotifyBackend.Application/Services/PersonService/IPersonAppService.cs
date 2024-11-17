@@ -15,5 +15,6 @@ namespace GuardianNotifyBackend.Services.PersonService
         Task<List<PersonDto>> GetAllAsync();
         Task<PersonDto> UpdateAsync(PersonDto input);
         Task Delete(Guid id);
+        Task<PersonDto> GetPersonByUserIdAsync(long userId);
     }
 }

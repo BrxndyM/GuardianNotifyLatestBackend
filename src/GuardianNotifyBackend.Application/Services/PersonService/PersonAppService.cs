@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Abp.Application.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace GuardianNotifyBackend.Services.PersonService
 {
@@ -60,6 +61,24 @@ namespace GuardianNotifyBackend.Services.PersonService
         public async Task Delete(Guid id)
         {
             await _PersonRepository.DeleteAsync(id);
+        }
+        [HttpGet]
+        public async Task<PersonDto> GetPersonByUserIdAsync(long userId)
+        {
+            var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == userId);
+            if (user == null)
+            {
+                throw new Exception("User not found for the given User ID");
+            }
+
+            var query = _PersonRepository.GetAllIncluding(m => m.User)
+                         .FirstOrDefault(x => x.User.Id == user.Id);
+            if (query == null)
+            {
+                throw new Exception("Person not found for the given User ID");
+            }
+
+            return ObjectMapper.Map<PersonDto>(query);
         }
 
         private async Task<User> CreateUser(PersonDto input)

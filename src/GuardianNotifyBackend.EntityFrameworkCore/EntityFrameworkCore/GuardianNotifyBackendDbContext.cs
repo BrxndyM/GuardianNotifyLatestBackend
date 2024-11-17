@@ -14,6 +14,7 @@ namespace GuardianNotifyBackend.EntityFrameworkCore
         public DbSet<Person> Persons { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<CloseContact> CloseContacts { get; set; }
+        //public DbSet<EmailResult> EmailResults { get; set; }
 
         public GuardianNotifyBackendDbContext(DbContextOptions<GuardianNotifyBackendDbContext> options)
             : base(options)
